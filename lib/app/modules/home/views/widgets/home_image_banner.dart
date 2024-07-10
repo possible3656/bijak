@@ -1,8 +1,10 @@
+import 'package:bijak/app/modules/home/controllers/home_controller.dart';
 import 'package:bijak/app/utils/extensions/theme_extensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-class HomeImageBanner extends StatelessWidget {
+class HomeImageBanner extends GetView<HomeController> {
   const HomeImageBanner({super.key});
 
   @override
@@ -16,14 +18,14 @@ class HomeImageBanner extends StatelessWidget {
             autoPlay: true,
             enlargeCenterPage: true,
             viewportFraction: 1),
-        items: [1, 2, 3].map((i) {
+        items: (controller.homePageDataModel.sliderImages ?? []).map((i) {
           return Builder(
             builder: (BuildContext context) {
               return Container(
                 decoration: BoxDecoration(
                   color: theme.greyColor,
-                  image: const DecorationImage(
-                    image: NetworkImage('https://via.placeholder.com/150'),
+                  image: DecorationImage(
+                    image: NetworkImage(i, scale: .1),
                     fit: BoxFit.cover,
                   ),
                 ),
