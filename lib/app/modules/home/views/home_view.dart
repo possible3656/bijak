@@ -1,7 +1,7 @@
-import 'package:bijak/app/modules/home/views/widgets/home_app_bar.dart';
-import 'package:bijak/app/modules/home/views/widgets/home_loaded_view.dart';
-import 'package:bijak/app/utils/widgets/magic_loader.dart';
-import 'package:bijak/app/utils/widgets/nudge_bar.dart';
+import 'widgets/home_app_bar.dart';
+import 'widgets/home_loaded_view.dart';
+import '../../../utils/widgets/magic_loader.dart';
+import '../../../utils/widgets/nudge_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +16,6 @@ class HomeView extends GetView<HomeController> {
         appBar: const HomeAppBar(),
         body: Obx(() => controller.loading.value
             ? const Center(child: MagicLoader())
-            : const HomeLoadedView()));
+            : const HomeLoadedView(),),);
   }
 }

@@ -1,8 +1,10 @@
-import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/res/strings.dart';
-import 'package:bijak/app/theme/text_styles.dart';
+import '../../controllers/home_controller.dart';
+import '../../../../res/strings.dart';
+import '../../../../theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+
+import '../../../../data/home_page_data_model.dart';
 
 class HomeCategoryList extends GetView<HomeController> {
   const HomeCategoryList({super.key});
@@ -13,7 +15,7 @@ class HomeCategoryList extends GetView<HomeController> {
       padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           const Text(
             Strings.categories,
             style: TextStyles.black14Bold,
@@ -27,8 +29,8 @@ class HomeCategoryList extends GetView<HomeController> {
                   controller.homePageDataModel.value.categories?.length ?? 0,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                final element =
+              itemBuilder: (BuildContext context, int index) {
+                final Category? element =
                     controller.homePageDataModel.value.categories?[index];
                 return HomeCategoryItem(
                   title: element?.title ?? '',
@@ -44,11 +46,11 @@ class HomeCategoryList extends GetView<HomeController> {
 }
 
 class HomeCategoryItem extends StatelessWidget {
-  final String title;
-  final String imageUrl;
 
   const HomeCategoryItem(
-      {super.key, required this.title, required this.imageUrl});
+      {super.key, required this.title, required this.imageUrl,});
+  final String title;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class HomeCategoryItem extends StatelessWidget {
       child: SizedBox(
         width: 64,
         child: Column(
-          children: [
+          children: <Widget>[
             CircleAvatar(
               radius: 24,
               backgroundColor: Colors.grey[300],

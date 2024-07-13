@@ -11,10 +11,6 @@ String homePageDataModelToJson(HomePageDataModel data) =>
     json.encode(data.toJson());
 
 class HomePageDataModel {
-  final List<String>? sliderImages;
-  final List<Category>? categories;
-  final List<Product>? recentOrder;
-  final List<Product>? seasonalProducts;
 
   HomePageDataModel({
     this.sliderImages,
@@ -22,6 +18,29 @@ class HomePageDataModel {
     this.recentOrder,
     this.seasonalProducts,
   });
+
+  factory HomePageDataModel.fromJson(Map<String, dynamic> json) =>
+      HomePageDataModel(
+        sliderImages: json['slider_images'] == null
+            ? <String>[]
+            : List<String>.from(json['slider_images']!.map((x) => x)),
+        categories: json['categories'] == null
+            ? <Category>[]
+            : List<Category>.from(
+                json['categories']!.map((x) => Category.fromJson(x)),),
+        recentOrder: json['recent_order'] == null
+            ? <Product>[]
+            : List<Product>.from(
+                json['recent_order']!.map((x) => Product.fromJson(x)),),
+        seasonalProducts: json['seasonal_products'] == null
+            ? <Product>[]
+            : List<Product>.from(
+                json['seasonal_products']!.map((x) => Product.fromJson(x)),),
+      );
+  final List<String>? sliderImages;
+  final List<Category>? categories;
+  final List<Product>? recentOrder;
+  final List<Product>? seasonalProducts;
 
   HomePageDataModel copyWith({
     List<String>? sliderImages,
@@ -36,49 +55,35 @@ class HomePageDataModel {
         seasonalProducts: seasonalProducts ?? this.seasonalProducts,
       );
 
-  factory HomePageDataModel.fromJson(Map<String, dynamic> json) =>
-      HomePageDataModel(
-        sliderImages: json["slider_images"] == null
-            ? []
-            : List<String>.from(json["slider_images"]!.map((x) => x)),
-        categories: json["categories"] == null
-            ? []
-            : List<Category>.from(
-                json["categories"]!.map((x) => Category.fromJson(x))),
-        recentOrder: json["recent_order"] == null
-            ? []
-            : List<Product>.from(
-                json["recent_order"]!.map((x) => Product.fromJson(x))),
-        seasonalProducts: json["seasonal_products"] == null
-            ? []
-            : List<Product>.from(
-                json["seasonal_products"]!.map((x) => Product.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "slider_images": sliderImages == null
-            ? []
-            : List<dynamic>.from(sliderImages!.map((x) => x)),
-        "categories": categories == null
-            ? []
-            : List<dynamic>.from(categories!.map((x) => x.toJson())),
-        "recent_order": recentOrder == null
-            ? []
-            : List<dynamic>.from(recentOrder!.map((x) => x.toJson())),
-        "seasonal_products": seasonalProducts == null
-            ? []
-            : List<dynamic>.from(seasonalProducts!.map((x) => x.toJson())),
+  Map<String, dynamic> toJson() => <String, >{
+        'slider_images': sliderImages == null
+            ? <>[]
+            : List<dynamic>.from(sliderImages!.map((String x) => x)),
+        'categories': categories == null
+            ? <>[]
+            : List<dynamic>.from(categories!.map((Category x) => x.toJson())),
+        'recent_order': recentOrder == null
+            ? <>[]
+            : List<dynamic>.from(recentOrder!.map((Product x) => x.toJson())),
+        'seasonal_products': seasonalProducts == null
+            ? <>[]
+            : List<dynamic>.from(seasonalProducts!.map((Product x) => x.toJson())),
       };
 }
 
 class Category {
-  final String? title;
-  final String? image;
 
   Category({
     this.title,
     this.image,
   });
+
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+        title: json['title'],
+        image: json['image'],
+      );
+  final String? title;
+  final String? image;
 
   Category copyWith({
     String? title,
@@ -89,25 +94,13 @@ class Category {
         image: image ?? this.image,
       );
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        title: json["title"],
-        image: json["image"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "title": title,
-        "image": image,
+  Map<String, dynamic> toJson() => <String, >{
+        'title': title,
+        'image': image,
       };
 }
 
 class Product {
-  final int? id;
-  final String? name;
-  final String weight;
-  final String? price;
-  final String? image;
-  final String? description;
-  int quantity;
 
   Product({
     this.id,
@@ -118,6 +111,23 @@ class Product {
     this.description,
     this.quantity = 0,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json['id'],
+        name: json['name'],
+        weight: json['weight'],
+        price: json['price'],
+        image: json['image'],
+        description: json['description'],
+        quantity: json['quantity'],
+      );
+  final int? id;
+  final String? name;
+  final String weight;
+  final String? price;
+  final String? image;
+  final String? description;
+  int quantity;
 
   Product copyWith({
     int? id,
@@ -138,23 +148,13 @@ class Product {
         quantity: quantity ?? this.quantity,
       );
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"],
-        name: json["name"],
-        weight: json["weight"],
-        price: json["price"],
-        image: json["image"],
-        description: json["description"],
-        quantity: json["quantity"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "weight": weight,
-        "price": price,
-        "image": image,
-        "description": description,
-        "quantity": quantity,
+  Map<String, dynamic> toJson() => <String, >{
+        'id': id,
+        'name': name,
+        'weight': weight,
+        'price': price,
+        'image': image,
+        'description': description,
+        'quantity': quantity,
       };
 }

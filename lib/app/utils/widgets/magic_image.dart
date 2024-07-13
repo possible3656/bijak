@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MagicImage extends StatelessWidget {
-  final String? imageUrl;
-  final Icon? errorIcon;
-  final Color errorBackgroundColor;
-  final Size? size;
 
   const MagicImage({
     super.key,
@@ -13,6 +9,10 @@ class MagicImage extends StatelessWidget {
     this.errorBackgroundColor = const Color.fromRGBO(238, 238, 238, 1),
     this.size,
   });
+  final String? imageUrl;
+  final Icon? errorIcon;
+  final Color errorBackgroundColor;
+  final Size? size;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,12 @@ class MagicImage extends StatelessWidget {
         color: Colors.transparent, // Default background color
       ),
       child: Image.network(
-        imageUrl ?? "",
+        imageUrl ?? '',
         width: size?.width,
         height: size?.height,
         scale: .1,
         fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
+        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
           if (loadingProgress == null) return child;
           return Center(
             child: SizedBox(
@@ -41,7 +41,7 @@ class MagicImage extends StatelessWidget {
             ),
           );
         },
-        errorBuilder: (context, error, stackTrace) {
+        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
           return Container(
             color: errorBackgroundColor,
             child: Center(

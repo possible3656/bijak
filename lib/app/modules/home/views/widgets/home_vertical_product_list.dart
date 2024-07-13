@@ -1,10 +1,10 @@
-import 'package:bijak/app/data/home_page_data_model.dart';
-import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/res/strings.dart';
-import 'package:bijak/app/theme/text_styles.dart';
-import 'package:bijak/app/utils/extensions/theme_extensions.dart';
-import 'package:bijak/app/utils/widgets/add_to_cart_button.dart';
-import 'package:bijak/app/utils/widgets/magic_image.dart';
+import '../../../../data/home_page_data_model.dart';
+import '../../controllers/home_controller.dart';
+import '../../../../res/strings.dart';
+import '../../../../theme/text_styles.dart';
+import '../../../../utils/extensions/theme_extensions.dart';
+import '../../../../utils/widgets/add_to_cart_button.dart';
+import '../../../../utils/widgets/magic_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,7 @@ class HomeVerticalProductList extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         const Padding(
           padding: EdgeInsets.only(left: 16, right: 16, top: 16),
           child: Text(
@@ -30,7 +30,7 @@ class HomeVerticalProductList extends GetView<HomeController> {
           padding: EdgeInsets.zero,
           itemCount:
               controller.homePageDataModel.value.seasonalProducts?.length ?? 0,
-          itemBuilder: (context, index) {
+          itemBuilder: (BuildContext context, int index) {
             return Obx(() => VerticalProductItem(
                 item:
                     controller.homePageDataModel.value.seasonalProducts![index],
@@ -39,7 +39,7 @@ class HomeVerticalProductList extends GetView<HomeController> {
                 onProductPressed: () => controller.goToProductDetails(
                       controller
                           .homePageDataModel.value.seasonalProducts![index],
-                    )));
+                    ),),);
           },
         ),
       ],
@@ -53,7 +53,7 @@ class VerticalProductItem extends StatelessWidget {
       required this.item,
       required this.index,
       required this.onAddToCartPressed,
-      required this.onProductPressed});
+      required this.onProductPressed,});
   final Product item;
   final int index;
   final Function({required Product item, required bool isAdded})
@@ -63,10 +63,10 @@ class VerticalProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final image = item.image ?? '';
-    final name = item.name ?? 'Product $index';
-    final weight = item.weight;
-    final price = item.price ?? '-';
+    final String image = item.image ?? '';
+    final String name = item.name ?? 'Product $index';
+    final String weight = item.weight;
+    final String price = item.price ?? '-';
     return GestureDetector(
       onTap: onProductPressed,
       child: IntrinsicHeight(
@@ -76,7 +76,7 @@ class VerticalProductItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
-            boxShadow: [
+            boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
                 spreadRadius: 3,
@@ -86,16 +86,16 @@ class VerticalProductItem extends StatelessWidget {
             ],
           ),
           child: Row(
-            children: [
+            children: <Widget>[
               SizedBox(
                   height: 96,
                   width: 96,
-                  child: MagicImage(imageUrl: image, size: const Size(96, 96))),
+                  child: MagicImage(imageUrl: image, size: const Size(96, 96)),),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Text(
                       name,
                       style: TextStyles.black12Regular,
@@ -132,9 +132,9 @@ class VerticalProductItem extends StatelessWidget {
                       child: AddToCartButton(
                           item: item,
                           quantity: item.quantity,
-                          onAddToCartPressed: onAddToCartPressed),
+                          onAddToCartPressed: onAddToCartPressed,),
                     ),
-                  )),
+                  ),),
             ],
           ),
         ),

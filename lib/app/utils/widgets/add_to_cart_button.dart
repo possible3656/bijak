@@ -1,7 +1,7 @@
-import 'package:bijak/app/data/home_page_data_model.dart';
-import 'package:bijak/app/res/strings.dart';
-import 'package:bijak/app/theme/text_styles.dart';
-import 'package:bijak/app/utils/extensions/theme_extensions.dart';
+import '../../data/home_page_data_model.dart';
+import '../../res/strings.dart';
+import '../../theme/text_styles.dart';
+import '../extensions/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class AddToCartButton extends StatelessWidget {
@@ -24,7 +24,7 @@ class AddToCartButton extends StatelessWidget {
             onTap: () => onAddToCartPressed(item: item, isAdded: true),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 Text(Strings.addToCart, style: TextStyles.white12Bold),
               ],
             ),

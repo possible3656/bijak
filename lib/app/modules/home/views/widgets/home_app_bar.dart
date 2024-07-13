@@ -1,5 +1,5 @@
-import 'package:bijak/app/res/strings.dart';
-import 'package:bijak/app/utils/extensions/theme_extensions.dart';
+import '../../../../res/strings.dart';
+import '../../../../utils/extensions/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -7,7 +7,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return AppBar(
       leading: IconButton(
         icon: Icon(
@@ -21,7 +21,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         Strings.appName,
       ),
       centerTitle: true,
-      actions: [
+      actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.logout,

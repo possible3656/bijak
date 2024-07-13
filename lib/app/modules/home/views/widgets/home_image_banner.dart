@@ -1,5 +1,5 @@
-import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/utils/widgets/magic_image.dart';
+import '../../controllers/home_controller.dart';
+import '../../../../utils/widgets/magic_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -16,8 +16,8 @@ class HomeImageBanner extends GetView<HomeController> {
             aspectRatio: 2 / 3,
             autoPlay: true,
             enlargeCenterPage: true,
-            viewportFraction: 1),
-        items: (controller.homePageDataModel.value.sliderImages ?? []).map((i) {
+            viewportFraction: 1,),
+        items: (controller.homePageDataModel.value.sliderImages ?? <String>[]).map((String i) {
           return Builder(
             builder: (BuildContext context) {
               return MagicImage(
@@ -25,7 +25,7 @@ class HomeImageBanner extends GetView<HomeController> {
                   errorIcon: const Icon(
                     Icons.image,
                     size: 48,
-                  ));
+                  ),);
             },
           );
         }).toList(),

@@ -1,5 +1,5 @@
-import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/theme/text_styles.dart';
+import '../../modules/home/controllers/home_controller.dart';
+import '../../theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,10 +18,10 @@ class NudgeBar extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
-              )),
+              ),),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Expanded(
                     child: Text(
                       '${controller.getItemCount().toString()} Item(s)',
@@ -34,11 +34,11 @@ class NudgeBar extends StatelessWidget {
                       textAlign: TextAlign.end,
                       style: TextStyles.black14Bold,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           )
-        : const SizedBox.shrink());
+        : const SizedBox.shrink(),);
   }
 }

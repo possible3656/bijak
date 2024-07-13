@@ -1,7 +1,7 @@
-import 'package:bijak/app/data/home_page_data_model.dart';
-import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/modules/product_details_page/repo/product_repo.dart';
-import 'package:bijak/app/utils/global_methods.dart';
+import '../../../data/home_page_data_model.dart';
+import '../../home/controllers/home_controller.dart';
+import '../repo/product_repo.dart';
+import '../../../utils/global_methods.dart';
 import 'package:get/get.dart';
 
 class ProductDetailsPageController extends GetxController {

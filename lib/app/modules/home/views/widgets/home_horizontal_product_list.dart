@@ -1,9 +1,9 @@
-import 'package:bijak/app/data/home_page_data_model.dart';
-import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/theme/text_styles.dart';
-import 'package:bijak/app/utils/extensions/theme_extensions.dart';
-import 'package:bijak/app/utils/widgets/add_to_cart_button.dart';
-import 'package:bijak/app/utils/widgets/magic_image.dart';
+import '../../../../data/home_page_data_model.dart';
+import '../../controllers/home_controller.dart';
+import '../../../../theme/text_styles.dart';
+import '../../../../utils/extensions/theme_extensions.dart';
+import '../../../../utils/widgets/add_to_cart_button.dart';
+import '../../../../utils/widgets/magic_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
@@ -18,7 +18,7 @@ class HomeHorizontalProductList extends GetView<HomeController> {
       padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           const Text(
             Strings.recentlyOrdered,
             style: TextStyles.black14Bold,
@@ -31,7 +31,7 @@ class HomeHorizontalProductList extends GetView<HomeController> {
               itemCount:
                   controller.homePageDataModel.value.recentOrder?.length ?? 0,
               padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 return Obx(() => ProductItem(
                     item:
                         controller.homePageDataModel.value.recentOrder![index],
@@ -39,7 +39,7 @@ class HomeHorizontalProductList extends GetView<HomeController> {
                     onAddToCartPressed: controller.onProductPressed,
                     onProductPressed: () => controller.goToProductDetails(
                         controller
-                            .homePageDataModel.value.recentOrder![index])));
+                            .homePageDataModel.value.recentOrder![index],),),);
               },
             ),
           ),
@@ -55,7 +55,7 @@ class ProductItem extends StatelessWidget {
       required this.item,
       required this.index,
       required this.onAddToCartPressed,
-      required this.onProductPressed});
+      required this.onProductPressed,});
   final Product item;
   final int index;
   final Function({required Product item, required bool isAdded})
@@ -73,7 +73,7 @@ class ProductItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
+          boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 3,
@@ -84,7 +84,7 @@ class ProductItem extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(8),
@@ -97,17 +97,17 @@ class ProductItem extends StatelessWidget {
                     imageUrl: item.image,
                     size: const Size(96, 96),
                   ),
-                )),
+                ),),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         const SizedBox(height: 4),
                         Text(
                           item.name ?? 'Product $index',
@@ -139,13 +139,13 @@ class ProductItem extends StatelessWidget {
                           color: theme.blackColor,
                           borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(8),
-                              bottomRight: Radius.circular(8))),
+                              bottomRight: Radius.circular(8),),),
                       child: AddToCartButton(
                           item: item,
                           quantity: item.quantity,
-                          onAddToCartPressed: onAddToCartPressed),
+                          onAddToCartPressed: onAddToCartPressed,),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
