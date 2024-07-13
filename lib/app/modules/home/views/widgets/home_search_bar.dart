@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../../../../res/strings.dart';
 import '../../../../theme/text_styles.dart';
 import '../../../../utils/extensions/theme_extensions.dart';
-import 'package:flutter/material.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});

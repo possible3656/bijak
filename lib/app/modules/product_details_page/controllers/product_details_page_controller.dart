@@ -1,8 +1,9 @@
+import 'package:get/get.dart';
+
 import '../../../data/home_page_data_model.dart';
+import '../../../utils/global_methods.dart';
 import '../../home/controllers/home_controller.dart';
 import '../repo/product_repo.dart';
-import '../../../utils/global_methods.dart';
-import 'package:get/get.dart';
 
 class ProductDetailsPageController extends GetxController {
   int productId = Get.arguments;

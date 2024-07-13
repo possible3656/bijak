@@ -1,12 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import '../../../../data/home_page_data_model.dart';
-import '../../controllers/home_controller.dart';
 import '../../../../res/strings.dart';
 import '../../../../theme/text_styles.dart';
 import '../../../../utils/extensions/theme_extensions.dart';
 import '../../../../utils/widgets/add_to_cart_button.dart';
 import '../../../../utils/widgets/magic_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import '../../controllers/home_controller.dart';
 
 class HomeVerticalProductList extends GetView<HomeController> {
   const HomeVerticalProductList({super.key});
@@ -31,15 +32,17 @@ class HomeVerticalProductList extends GetView<HomeController> {
           itemCount:
               controller.homePageDataModel.value.seasonalProducts?.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
-            return Obx(() => VerticalProductItem(
+            return Obx(
+              () => VerticalProductItem(
                 item:
                     controller.homePageDataModel.value.seasonalProducts![index],
                 index: index,
                 onAddToCartPressed: controller.onProductPressed,
                 onProductPressed: () => controller.goToProductDetails(
-                      controller
-                          .homePageDataModel.value.seasonalProducts![index],
-                    ),),);
+                  controller.homePageDataModel.value.seasonalProducts![index],
+                ),
+              ),
+            );
           },
         ),
       ],
@@ -48,12 +51,13 @@ class HomeVerticalProductList extends GetView<HomeController> {
 }
 
 class VerticalProductItem extends StatelessWidget {
-  const VerticalProductItem(
-      {super.key,
-      required this.item,
-      required this.index,
-      required this.onAddToCartPressed,
-      required this.onProductPressed,});
+  const VerticalProductItem({
+    super.key,
+    required this.item,
+    required this.index,
+    required this.onAddToCartPressed,
+    required this.onProductPressed,
+  });
   final Product item;
   final int index;
   final Function({required Product item, required bool isAdded})
@@ -88,9 +92,10 @@ class VerticalProductItem extends StatelessWidget {
           child: Row(
             children: <Widget>[
               SizedBox(
-                  height: 96,
-                  width: 96,
-                  child: MagicImage(imageUrl: image, size: const Size(96, 96)),),
+                height: 96,
+                width: 96,
+                child: MagicImage(imageUrl: image, size: const Size(96, 96)),
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -120,21 +125,23 @@ class VerticalProductItem extends StatelessWidget {
                 ),
               ),
               Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: theme.blackColor,
-                      borderRadius: BorderRadius.circular(8),
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.blackColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  height: 45,
+                  width: Get.width * .25,
+                  child: IntrinsicHeight(
+                    child: AddToCartButton(
+                      item: item,
+                      quantity: item.quantity,
+                      onAddToCartPressed: onAddToCartPressed,
                     ),
-                    height: 45,
-                    width: Get.width * .25,
-                    child: IntrinsicHeight(
-                      child: AddToCartButton(
-                          item: item,
-                          quantity: item.quantity,
-                          onAddToCartPressed: onAddToCartPressed,),
-                    ),
-                  ),),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

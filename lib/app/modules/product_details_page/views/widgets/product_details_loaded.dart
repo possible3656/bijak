@@ -1,12 +1,12 @@
-import '../../controllers/product_details_page_controller.dart';
-import '../../../../theme/text_styles.dart';
-import '../../../../utils/extensions/theme_extensions.dart';
-import '../../../../utils/widgets/add_to_cart_button.dart';
-import '../../../../utils/widgets/magic_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/home_page_data_model.dart';
+import '../../../../theme/text_styles.dart';
+import '../../../../utils/extensions/theme_extensions.dart';
+import '../../../../utils/widgets/add_to_cart_button.dart';
+import '../../../../utils/widgets/magic_image.dart';
+import '../../controllers/product_details_page_controller.dart';
 
 class ProductDetailsLoaded extends GetView<ProductDetailsPageController> {
   const ProductDetailsLoaded({super.key});
@@ -35,15 +35,18 @@ class ProductDetailsLoaded extends GetView<ProductDetailsPageController> {
                   child: BackButton(
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all<Color>(
-                          Colors.white.withOpacity(.4),),
+                        Colors.white.withOpacity(.4),
+                      ),
                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                       ),
                       padding: WidgetStateProperty.all<EdgeInsets>(
-                          const EdgeInsets.all(
-                              8.0,),), // Adjust padding as needed
+                        const EdgeInsets.all(
+                          8.0,
+                        ),
+                      ), // Adjust padding as needed
                     ),
                   ),
                 ),
@@ -93,10 +96,13 @@ class ProductDetailsLoaded extends GetView<ProductDetailsPageController> {
                 margin: const EdgeInsets.only(right: 8),
                 height: 35,
                 width: Get.width * .25,
-                child: Obx(() => AddToCartButton(
+                child: Obx(
+                  () => AddToCartButton(
                     item: product.value!,
                     quantity: product.value?.quantity ?? 0,
-                    onAddToCartPressed: controller.onAddToCartPressed,),),
+                    onAddToCartPressed: controller.onAddToCartPressed,
+                  ),
+                ),
               ),
             ],
           ),

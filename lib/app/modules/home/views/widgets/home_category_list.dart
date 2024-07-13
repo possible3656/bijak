@@ -1,10 +1,10 @@
-import '../../controllers/home_controller.dart';
-import '../../../../res/strings.dart';
-import '../../../../theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../../../data/home_page_data_model.dart';
+import '../../../../res/strings.dart';
+import '../../../../theme/text_styles.dart';
+import '../../controllers/home_controller.dart';
 
 class HomeCategoryList extends GetView<HomeController> {
   const HomeCategoryList({super.key});
@@ -46,9 +46,11 @@ class HomeCategoryList extends GetView<HomeController> {
 }
 
 class HomeCategoryItem extends StatelessWidget {
-
-  const HomeCategoryItem(
-      {super.key, required this.title, required this.imageUrl,});
+  const HomeCategoryItem({
+    super.key,
+    required this.title,
+    required this.imageUrl,
+  });
   final String title;
   final String imageUrl;
 

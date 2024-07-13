@@ -33,7 +33,6 @@ linter:
     - sort_child_properties_last
     - avoid_init_to_null
     - prefer_typing_uninitialized_variables
-    - type_annotate_public_apis
     - prefer_is_not_empty
     - unnecessary_const
     - unnecessary_new

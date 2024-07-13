@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MagicImage extends StatelessWidget {
-
   const MagicImage({
     super.key,
     required this.imageUrl,
@@ -26,7 +25,11 @@ class MagicImage extends StatelessWidget {
         height: size?.height,
         scale: .1,
         fit: BoxFit.cover,
-        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+        loadingBuilder: (
+          BuildContext context,
+          Widget child,
+          ImageChunkEvent? loadingProgress,
+        ) {
           if (loadingProgress == null) return child;
           return Center(
             child: SizedBox(
@@ -41,7 +44,8 @@ class MagicImage extends StatelessWidget {
             ),
           );
         },
-        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) {
           return Container(
             color: errorBackgroundColor,
             child: Center(

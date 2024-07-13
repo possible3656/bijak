@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:get/get.dart';
+
 import '../../../data/home_page_data_model.dart';
-import '../repo/home_repo.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/global_methods.dart';
-import 'package:get/get.dart';
+import '../repo/home_repo.dart';
 
 /// Controller class for the home page.
 class HomeController extends GetxController {
@@ -33,9 +34,10 @@ class HomeController extends GetxController {
   /// The [isAdded] parameter indicates whether the product is being added or removed.
   void onProductPressed({required Product item, required bool isAdded}) {
     final Product product = homePageDataModel.value.recentOrder!.firstWhere(
-        (Product element) => element.id == item.id,
-        orElse: () => homePageDataModel.value.seasonalProducts!
-            .firstWhere((Product element) => element.id == item.id),);
+      (Product element) => element.id == item.id,
+      orElse: () => homePageDataModel.value.seasonalProducts!
+          .firstWhere((Product element) => element.id == item.id),
+    );
 
     removeExistingProduct(product);
     if (isAdded) {

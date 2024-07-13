@@ -5,5 +5,5 @@ class Strings {
   static const String categories = 'Categories';
   static const String recentlyOrdered = 'Recently Ordered';
   static const String addToCart = 'Add to Cart';
-  static const String seasonProducts= 'Seasonal Products';
+  static const String seasonProducts = 'Seasonal Products';
 }
