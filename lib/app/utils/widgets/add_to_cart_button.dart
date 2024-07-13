@@ -1,3 +1,4 @@
+import 'package:bijak/app/data/home_page_data_model.dart';
 import 'package:bijak/app/res/strings.dart';
 import 'package:bijak/app/theme/text_styles.dart';
 import 'package:bijak/app/utils/extensions/theme_extensions.dart';
@@ -6,13 +7,13 @@ import 'package:flutter/material.dart';
 class AddToCartButton extends StatelessWidget {
   const AddToCartButton({
     super.key,
-    required this.index,
+    required this.item,
     required this.quantity,
     required this.onAddToCartPressed,
   });
-  final int index;
+  final Product item;
   final int quantity;
-  final Function({required int index, required bool isAdded})
+  final Function({required Product item, required bool isAdded})
       onAddToCartPressed;
 
   @override
@@ -20,7 +21,7 @@ class AddToCartButton extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     return quantity == 0
         ? InkWell(
-            onTap: () => onAddToCartPressed(index: index, isAdded: true),
+            onTap: () => onAddToCartPressed(item: item, isAdded: true),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -34,7 +35,7 @@ class AddToCartButton extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: InkWell(
-                  onTap: () => onAddToCartPressed(index: index, isAdded: false),
+                  onTap: () => onAddToCartPressed(item: item, isAdded: false),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
@@ -65,7 +66,7 @@ class AddToCartButton extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: InkWell(
-                  onTap: () => onAddToCartPressed(index: index, isAdded: true),
+                  onTap: () => onAddToCartPressed(item: item, isAdded: true),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),

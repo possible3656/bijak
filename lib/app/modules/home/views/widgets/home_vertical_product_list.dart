@@ -4,6 +4,7 @@ import 'package:bijak/app/res/strings.dart';
 import 'package:bijak/app/theme/text_styles.dart';
 import 'package:bijak/app/utils/extensions/theme_extensions.dart';
 import 'package:bijak/app/utils/widgets/add_to_cart_button.dart';
+import 'package:bijak/app/utils/widgets/magic_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,11 @@ class HomeVerticalProductList extends GetView<HomeController> {
                 item:
                     controller.homePageDataModel.value.seasonalProducts![index],
                 index: index,
-                onAddToCartPressed: controller.onSeasonalProductPressed));
+                onAddToCartPressed: controller.onProductPressed,
+                onProductPressed: () => controller.goToProductDetails(
+                      controller
+                          .homePageDataModel.value.seasonalProducts![index],
+                    )));
           },
         ),
       ],
@@ -46,11 +51,13 @@ class VerticalProductItem extends StatelessWidget {
       {super.key,
       required this.item,
       required this.index,
-      required this.onAddToCartPressed});
+      required this.onAddToCartPressed,
+      required this.onProductPressed});
   final Product item;
   final int index;
-  final Function({required int index, required bool isAdded})
+  final Function({required Product item, required bool isAdded})
       onAddToCartPressed;
+  final Function() onProductPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -59,73 +66,71 @@ class VerticalProductItem extends StatelessWidget {
     final name = item.name ?? 'Product $index';
     final weight = item.weight;
     final price = item.price ?? '-';
-    return IntrinsicHeight(
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Image.network(
-              image,
-              width: 96,
-              height: 96,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyles.black12Regular,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    weight,
-                    style: TextStyles.grey10Regular,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '₹ $price',
-                    style: TextStyles.grey10Regular,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+    return GestureDetector(
+      onTap: onProductPressed,
+      child: IntrinsicHeight(
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 3,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
               ),
-            ),
-            Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: theme.blackColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  height: 35,
-                  width: Get.width * .25,
-                  child: AddToCartButton(
-                      index: index,
-                      quantity: item.quantity,
-                      onAddToCartPressed: onAddToCartPressed),
-                )),
-          ],
+            ],
+          ),
+          child: Row(
+            children: [
+              MagicImage(imageUrl: image, size: const Size(96, 96)),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyles.black12Regular,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      weight,
+                      style: TextStyles.grey10Regular,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '₹ $price',
+                      style: TextStyles.grey10Regular,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.blackColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    height: 35,
+                    width: Get.width * .25,
+                    child: AddToCartButton(
+                        item: item,
+                        quantity: item.quantity,
+                        onAddToCartPressed: onAddToCartPressed),
+                  )),
+            ],
+          ),
         ),
       ),
     );

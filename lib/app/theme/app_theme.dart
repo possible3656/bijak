@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final ThemeData appTheme = ThemeData(
     appBarTheme: _appBarTheme,
-    
+    fontFamily: 'poppins',
   );
 
-  static final AppBarTheme _appBarTheme = AppBarTheme(
+  static const AppBarTheme _appBarTheme = AppBarTheme(
       backgroundColor: AppColors.greenColor,
       centerTitle: true,
       titleTextStyle: TextStyles.appBarTextStyle);

@@ -1,5 +1,5 @@
 import 'package:bijak/app/modules/home/controllers/home_controller.dart';
-import 'package:bijak/app/utils/extensions/theme_extensions.dart';
+import 'package:bijak/app/utils/widgets/magic_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -21,15 +21,12 @@ class HomeImageBanner extends GetView<HomeController> {
         items: (controller.homePageDataModel.value.sliderImages ?? []).map((i) {
           return Builder(
             builder: (BuildContext context) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: theme.greyColor,
-                  image: DecorationImage(
-                    image: NetworkImage(i, scale: .1),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
+              return MagicImage(
+                  imageUrl: i,
+                  errorIcon: const Icon(
+                    Icons.image,
+                    size: 48,
+                  ));
             },
           );
         }).toList(),

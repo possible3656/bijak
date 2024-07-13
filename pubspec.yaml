@@ -2,21 +2,33 @@ name: bijak
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=3.4.3 <4.0.0'
+environment:
+  sdk: ">=3.4.3 <4.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.6
   get: 4.6.6
-  flutter: 
+  flutter:
     sdk: flutter
   carousel_slider: ^4.2.1
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^3.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
 
+  fonts:
+    - family: poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bijak/app/data/home_page_data_model.dart';
 import 'package:bijak/app/modules/home/repo/home_repo.dart';
+import 'package:bijak/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 /// Controller class for the home page.
@@ -24,39 +25,23 @@ class HomeController extends GetxController {
     loading.value = false;
   }
 
-  /// Handles the button press event for recently ordered products.
+  /// Handles the button press event for any product.
   ///
-  /// The [index] parameter specifies the index of the product in the list.
+  /// The [item] parameter specifies the product in the list.
   /// The [isAdded] parameter indicates whether the product is being added or removed.
-  void onRecentlyOrderedPressed({required int index, required bool isAdded}) {
-    final product = homePageDataModel.value.recentOrder?[index];
-    removeExistingProduct(product);
-    if (product != null) {
-      if (isAdded) {
-        ++homePageDataModel.value.recentOrder?[index].quantity;
-      } else {
-        --homePageDataModel.value.recentOrder?[index].quantity;
-      }
-    }
-    updateCartItems(product!);
-    homePageDataModel.refresh();
-  }
+  void onProductPressed({required Product item, required bool isAdded}) {
+    final product = homePageDataModel.value.recentOrder!.firstWhere(
+        (element) => element.id == item.id,
+        orElse: () => homePageDataModel.value.seasonalProducts!
+            .firstWhere((element) => element.id == item.id));
 
-  /// Handles the button press event for seasonal products.
-  ///
-  /// The [index] parameter specifies the index of the product in the list.
-  /// The [isAdded] parameter indicates whether the product is being added or removed.
-  void onSeasonalProductPressed({required int index, required bool isAdded}) {
-    final product = homePageDataModel.value.seasonalProducts?[index];
     removeExistingProduct(product);
-    if (product != null) {
-      if (isAdded) {
-        ++homePageDataModel.value.seasonalProducts?[index].quantity;
-      } else {
-        --homePageDataModel.value.seasonalProducts?[index].quantity;
-      }
+    if (isAdded) {
+      ++product.quantity;
+    } else {
+      --product.quantity;
     }
-    updateCartItems(product!);
+    updateCartItems(product);
     homePageDataModel.refresh();
   }
 
@@ -73,8 +58,11 @@ class HomeController extends GetxController {
   ///
   /// The [product] parameter specifies the product to be added.
   void updateCartItems(Product product) {
-    cartItems.add(product);
-    cartItems.removeWhere((element) => element.quantity == 0);
+    if (product.quantity > 0) {
+      cartItems.add(product);
+    } else {
+      cartItems.remove(product);
+    }
     for (var element in cartItems) {
       log('Cart Items: ${element.toJson()}');
     }
@@ -96,5 +84,12 @@ class HomeController extends GetxController {
       totalPrice += element.quantity * int.parse(element.price ?? '0');
     }
     return totalPrice;
+  }
+
+  void goToProductDetails(Product product) {
+    Get.toNamed(Routes.PRODUCT_DETAILS_PAGE, arguments: product.id)
+        ?.then((value) {
+      refresh();
+    });
   }
 }

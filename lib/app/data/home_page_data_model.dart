@@ -101,17 +101,21 @@ class Category {
 }
 
 class Product {
+  final int? id;
   final String? name;
   final String weight;
   final String? price;
   final String? image;
+  final String? description;
   int quantity;
 
   Product({
+    this.id,
     this.name,
     this.weight = '1kg',
     this.price,
     this.image,
+    this.description,
     this.quantity = 0,
   });
 
@@ -121,29 +125,36 @@ class Product {
     String? weight,
     String? price,
     String? image,
+    String? description,
     int? quantity,
   }) =>
       Product(
+        id: id ?? this.id,
         name: name ?? this.name,
         weight: weight ?? this.weight,
         price: price ?? this.price,
         image: image ?? this.image,
+        description: description ?? this.description,
         quantity: quantity ?? this.quantity,
       );
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json["id"],
         name: json["name"],
         weight: json["weight"],
         price: json["price"],
         image: json["image"],
+        description: json["description"],
         quantity: json["quantity"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "weight": weight,
         "price": price,
         "image": image,
+        "description": description,
         "quantity": quantity,
       };
 }

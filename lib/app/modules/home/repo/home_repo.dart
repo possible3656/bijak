@@ -35,66 +35,96 @@ class HomeRepo {
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnFdTreGIiC27qhxWk6fxVVGnvRb2_4zC9sA&s'),
       ], recentOrder: [
         Product(
+            id: 0,
             name: 'Apple',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '100',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Fresh and juicy apples, perfect for a healthy snack or baking your favorite pies. Apples are rich in fiber and antioxidants, making them a great addition to any diet.'),
         Product(
+            id: 1,
             name: 'Banana',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '50',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Sweet and ripe bananas, ideal for breakfast smoothies or a quick energy boost. Bananas are packed with potassium and other essential nutrients, making them a staple in any healthy lifestyle.'),
         Product(
+            id: 2,
             name: 'Orange',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '60',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Citrus oranges, rich in vitamin C and perfect for juicing or snacking. Oranges provide a refreshing and tangy flavor that is both delicious and nutritious.'),
         Product(
+            id: 3,
             name: 'Mango',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '80',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Tropical mangoes, bursting with flavor and ideal for desserts or eating fresh. Mangoes are a good source of vitamins A and C, adding a tropical twist to your meals.'),
         Product(
+            id: 4,
             name: 'Pineapple',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '70',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Fresh pineapples, juicy and tangy, great for tropical salads or grilling. Pineapples are known for their anti-inflammatory properties and unique sweet-tart flavor.'),
       ], seasonalProducts: [
         Product(
+            id: 10,
             name: 'Apple',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '100',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Fresh and juicy apples, perfect for a healthy snack or baking your favorite pies. Apples are rich in fiber and antioxidants, making them a great addition to any diet.'),
         Product(
+            id: 11,
             name: 'Banana',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '50',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Sweet and ripe bananas, ideal for breakfast smoothies or a quick energy boost. Bananas are packed with potassium and other essential nutrients, making them a staple in any healthy lifestyle.'),
         Product(
+            id: 12,
             name: 'Orange',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '60',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Citrus oranges, rich in vitamin C and perfect for juicing or snacking. Oranges provide a refreshing and tangy flavor that is both delicious and nutritious.'),
         Product(
+            id: 13,
             name: 'Mango',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '80',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Tropical mangoes, bursting with flavor and ideal for desserts or eating fresh. Mangoes are a good source of vitamins A and C, adding a tropical twist to your meals.'),
         Product(
+            id: 14,
             name: 'Pineapple',
             image:
                 'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg',
             price: '70',
-            weight: '1kg'),
+            weight: '1kg',
+            description:
+                'Fresh pineapples, juicy and tangy, great for tropical salads or grilling. Pineapples are known for their anti-inflammatory properties and unique sweet-tart flavor.'),
       ]);
     });
   }
