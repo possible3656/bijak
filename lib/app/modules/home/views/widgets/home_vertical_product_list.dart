@@ -1,11 +1,13 @@
-import 'package:bijak/app/modules/home/views/widgets/home_horizontal_product_list.dart';
+import 'package:bijak/app/data/home_page_data_model.dart';
+import 'package:bijak/app/modules/home/controllers/home_controller.dart';
 import 'package:bijak/app/res/strings.dart';
 import 'package:bijak/app/theme/text_styles.dart';
 import 'package:bijak/app/utils/extensions/theme_extensions.dart';
+import 'package:bijak/app/utils/widgets/add_to_cart_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeVerticalProductList extends StatelessWidget {
+class HomeVerticalProductList extends GetView<HomeController> {
   const HomeVerticalProductList({super.key});
 
   @override
@@ -24,9 +26,14 @@ class HomeVerticalProductList extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 5,
+          itemCount:
+              controller.homePageDataModel.value.seasonalProducts?.length ?? 0,
           itemBuilder: (context, index) {
-            return const VerticalProductItem();
+            return Obx(() => VerticalProductItem(
+                item:
+                    controller.homePageDataModel.value.seasonalProducts![index],
+                index: index,
+                onAddToCartPressed: controller.onSeasonalProductPressed));
           },
         ),
       ],
@@ -35,15 +42,26 @@ class HomeVerticalProductList extends StatelessWidget {
 }
 
 class VerticalProductItem extends StatelessWidget {
-  const VerticalProductItem({super.key});
+  const VerticalProductItem(
+      {super.key,
+      required this.item,
+      required this.index,
+      required this.onAddToCartPressed});
+  final Product item;
+  final int index;
+  final Function({required int index, required bool isAdded})
+      onAddToCartPressed;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final image = item.image ?? '';
+    final name = item.name ?? 'Product $index';
+    final weight = item.weight;
+    final price = item.price ?? '-';
     return IntrinsicHeight(
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
-        // height: 96,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -60,32 +78,32 @@ class VerticalProductItem extends StatelessWidget {
         child: Row(
           children: [
             Image.network(
-              'https://via.placeholder.com/96',
+              image,
               width: 96,
               height: 96,
               fit: BoxFit.cover,
             ),
             const SizedBox(width: 8),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Product Name',
+                    name,
                     style: TextStyles.black12Regular,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
-                    'Product Weight',
+                    weight,
                     style: TextStyles.grey10Regular,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
-                    '\$Price',
+                    '₹ $price',
                     style: TextStyles.grey10Regular,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -102,10 +120,10 @@ class VerticalProductItem extends StatelessWidget {
                   ),
                   height: 35,
                   width: Get.width * .25,
-                  child: const AddRemoveItemWidget(
-                    index: 0,
-                    quantity: 0,
-                  ),
+                  child: AddToCartButton(
+                      index: index,
+                      quantity: item.quantity,
+                      onAddToCartPressed: onAddToCartPressed),
                 )),
           ],
         ),

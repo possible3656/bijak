@@ -1,10 +1,14 @@
+import 'package:bijak/app/data/home_page_data_model.dart';
+import 'package:bijak/app/modules/home/controllers/home_controller.dart';
 import 'package:bijak/app/theme/text_styles.dart';
 import 'package:bijak/app/utils/extensions/theme_extensions.dart';
+import 'package:bijak/app/utils/widgets/add_to_cart_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 
 import '../../../../res/strings.dart';
 
-class HomeHorizontalProductList extends StatelessWidget {
+class HomeHorizontalProductList extends GetView<HomeController> {
   const HomeHorizontalProductList({super.key});
 
   @override
@@ -23,9 +27,15 @@ class HomeHorizontalProductList extends StatelessWidget {
             height: 190,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount:
+                  controller.homePageDataModel.value.recentOrder?.length ?? 0,
               itemBuilder: (context, index) {
-                return const ProductItem();
+                return Obx(() => ProductItem(
+                      item: controller
+                          .homePageDataModel.value.recentOrder![index],
+                      index: index,
+                      onAddToCartPressed: controller.onRecentlyOrderedPressed,
+                    ));
               },
             ),
           ),
@@ -36,7 +46,15 @@ class HomeHorizontalProductList extends StatelessWidget {
 }
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  const ProductItem(
+      {super.key,
+      required this.item,
+      required this.index,
+      required this.onAddToCartPressed});
+  final Product item;
+  final int index;
+  final Function({required int index, required bool isAdded})
+      onAddToCartPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +83,7 @@ class ProductItem extends StatelessWidget {
               topRight: Radius.circular(8),
             ),
             child: Image.network(
-              'https://via.placeholder.com/96',
+              item.image ?? '',
               width: 96,
               height: 96,
               fit: BoxFit.cover,
@@ -76,28 +94,28 @@ class ProductItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Product Name',
+                        item.name ?? 'Product $index',
                         style: TextStyles.black12Regular,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Product Weight',
+                        item.weight,
                         style: TextStyles.grey10Regular,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        '\$Price',
+                        '₹ ${item.price ?? '-'}',
                         style: TextStyles.grey10Regular,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -113,10 +131,10 @@ class ProductItem extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(8),
                             bottomRight: Radius.circular(8))),
-                    child: const AddRemoveItemWidget(
-                      index: 0,
-                      quantity: 0,
-                    ),
+                    child: AddToCartButton(
+                        index: index,
+                        quantity: item.quantity ?? 0,
+                        onAddToCartPressed: onAddToCartPressed),
                   ),
                 )
               ],
@@ -125,70 +143,5 @@ class ProductItem extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class AddRemoveItemWidget extends StatelessWidget {
-  const AddRemoveItemWidget({
-    super.key,
-    required this.index,
-    required this.quantity,
-  });
-  final int index;
-  final int quantity;
-
-  @override
-  Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
-    return quantity == 0
-        ? const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(Strings.addToCart, style: TextStyles.white12Bold),
-            ],
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: Container(
-                  child: Icon(
-                    Icons.remove,
-                    size: 16,
-                    color: themeData.whiteColor,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    quantity.toString(),
-                    textAlign: TextAlign.center,
-                    style: themeData.textTheme.titleSmall?.copyWith(
-                      color: themeData.whiteColor,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 4,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    size: 16,
-                    color: themeData.whiteColor,
-                  ),
-                ),
-              ),
-            ],
-          );
   }
 }

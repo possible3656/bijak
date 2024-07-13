@@ -1,11 +1,16 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bijak/app/data/home_page_data_model.dart';
+import 'package:bijak/app/modules/home/repo/home_repo.dart';
 import 'package:get/get.dart';
 
+/// Controller class for the home page.
 class HomeController extends GetxController {
   RxBool loading = true.obs;
-  HomePageDataModel homePageDataModel = HomePageDataModel();
+  HomeRepo homeRepo = HomeRepo();
+  Rx<HomePageDataModel> homePageDataModel = HomePageDataModel().obs;
+  RxList<Product> cartItems = <Product>[].obs;
 
   @override
   void onInit() {
@@ -13,37 +18,83 @@ class HomeController extends GetxController {
     fetchHomePageData();
   }
 
-  void fetchHomePageData() {
-    Future.delayed(const Duration(seconds: 5), alignData);
+  /// Fetches the home page data from the repository.
+  Future<void> fetchHomePageData() async {
+    homePageDataModel.value = await homeRepo.getHomePageData();
+    loading.value = false;
   }
 
-  void alignData() {
-    homePageDataModel = HomePageDataModel(sliderImages: [
-      'https://img.freepik.com/premium-vector/grocery-store-promotion-catalog-cheap-price-flyer-template_606364-656.jpg?w=740',
-      'https://img.freepik.com/premium-vector/supermarket-online-shop-promotion-flyer-catalog-template_606364-664.jpg?w=740',
-      'https://img.freepik.com/premium-vector/promotion-flyer-template-design-grocery-store_606364-761.jpg?w=740',
-    ], categories: [
-      Category(
-          title: 'Fruits',
-          image:
-              'https://www.fruitsmith.com/pub/media/mageplaza/blog/post/s/e/seedless_fruits.jpg'),
-      Category(
-          title: 'Vegetables',
-          image:
-              'https://t4.ftcdn.net/jpg/03/20/39/89/360_F_320398931_CO8r6ymeSFqeoY1cE6P8dbSGRYiAYj4a.jpg'),
-      Category(
-          title: 'Juices',
-          image:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShxK2QV1fG8KWdfgjOJ71_neEbObsvB6lFPQ&s'),
-      Category(
-          title: 'Combos',
-          image:
-              'https://www.spoton.com/blog/content/images/size/w1200/2023/08/Mocktail--zero-proof-cocktails--and-different-non-alcoholic-drinks-1.jpeg'),
-      Category(
-          title: 'Pure Produced Items',
-          image:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnFdTreGIiC27qhxWk6fxVVGnvRb2_4zC9sA&s'),
-    ], recentOrder: [], seasonalProducts: []);
-    loading.value = false;
+  /// Handles the button press event for recently ordered products.
+  ///
+  /// The [index] parameter specifies the index of the product in the list.
+  /// The [isAdded] parameter indicates whether the product is being added or removed.
+  void onRecentlyOrderedPressed({required int index, required bool isAdded}) {
+    final product = homePageDataModel.value.recentOrder?[index];
+    removeExistingProduct(product);
+    if (product != null) {
+      if (isAdded) {
+        ++homePageDataModel.value.recentOrder?[index].quantity;
+      } else {
+        --homePageDataModel.value.recentOrder?[index].quantity;
+      }
+    }
+    updateCartItems(product!);
+    homePageDataModel.refresh();
+  }
+
+  /// Handles the button press event for seasonal products.
+  ///
+  /// The [index] parameter specifies the index of the product in the list.
+  /// The [isAdded] parameter indicates whether the product is being added or removed.
+  void onSeasonalProductPressed({required int index, required bool isAdded}) {
+    final product = homePageDataModel.value.seasonalProducts?[index];
+    removeExistingProduct(product);
+    if (product != null) {
+      if (isAdded) {
+        ++homePageDataModel.value.seasonalProducts?[index].quantity;
+      } else {
+        --homePageDataModel.value.seasonalProducts?[index].quantity;
+      }
+    }
+    updateCartItems(product!);
+    homePageDataModel.refresh();
+  }
+
+  /// Removes an existing product from the cart items list.
+  ///
+  /// The [product] parameter specifies the product to be removed.
+  void removeExistingProduct(Product? product) {
+    if (cartItems.contains(product)) {
+      cartItems.remove(product);
+    }
+  }
+
+  /// Updates the cart items list with a new product.
+  ///
+  /// The [product] parameter specifies the product to be added.
+  void updateCartItems(Product product) {
+    cartItems.add(product);
+    cartItems.removeWhere((element) => element.quantity == 0);
+    for (var element in cartItems) {
+      log('Cart Items: ${element.toJson()}');
+    }
+  }
+
+  /// Returns the total number of items in the cart.
+  int getItemCount() {
+    int itemCount = 0;
+    for (var element in cartItems) {
+      itemCount += element.quantity;
+    }
+    return itemCount;
+  }
+
+  /// Returns the total price of all items in the cart.
+  int getTotalPrice() {
+    int totalPrice = 0;
+    for (var element in cartItems) {
+      totalPrice += element.quantity * int.parse(element.price ?? '0');
+    }
+    return totalPrice;
   }
 }

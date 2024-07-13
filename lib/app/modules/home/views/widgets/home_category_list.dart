@@ -28,10 +28,12 @@ class HomeCategoryList extends GetView<HomeController> {
             height: 86,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: controller.homePageDataModel.categories?.length ?? 0,
+              itemCount:
+                  controller.homePageDataModel.value.categories?.length ?? 0,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final element = controller.homePageDataModel.categories?[index];
+                final element =
+                    controller.homePageDataModel.value.categories?[index];
                 return HomeCategoryItem(
                   title: element?.title ?? '',
                   imageUrl: element?.image ?? '',

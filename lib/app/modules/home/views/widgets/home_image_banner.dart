@@ -18,7 +18,7 @@ class HomeImageBanner extends GetView<HomeController> {
             autoPlay: true,
             enlargeCenterPage: true,
             viewportFraction: 1),
-        items: (controller.homePageDataModel.sliderImages ?? []).map((i) {
+        items: (controller.homePageDataModel.value.sliderImages ?? []).map((i) {
           return Builder(
             builder: (BuildContext context) {
               return Container(

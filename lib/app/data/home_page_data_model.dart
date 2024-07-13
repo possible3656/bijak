@@ -102,20 +102,21 @@ class Category {
 
 class Product {
   final String? name;
-  final String? weight;
+  final String weight;
   final String? price;
   final String? image;
-  final int? quantity;
+  int quantity;
 
   Product({
     this.name,
-    this.weight,
+    this.weight = '1kg',
     this.price,
     this.image,
-    this.quantity,
+    this.quantity = 0,
   });
 
   Product copyWith({
+    int? id,
     String? name,
     String? weight,
     String? price,

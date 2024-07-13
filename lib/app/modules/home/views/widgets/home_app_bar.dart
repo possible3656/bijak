@@ -2,7 +2,7 @@ import 'package:bijak/app/res/strings.dart';
 import 'package:bijak/app/utils/extensions/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
-class HomeAppBar extends StatelessWidget {
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
   @override
@@ -10,22 +10,31 @@ class HomeAppBar extends StatelessWidget {
     final theme = Theme.of(context);
     return AppBar(
       leading: IconButton(
-        icon: const Icon(Icons.person),
+        icon: Icon(
+          Icons.account_circle,
+          size: 28,
+          color: theme.whiteColor,
+        ),
         onPressed: () {},
       ),
-      title: Text(
+      title: const Text(
         Strings.appName,
-        style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.bold, color: theme.whiteColor),
       ),
       centerTitle: true,
       actions: [
         IconButton(
-          icon: const Icon(Icons.logout),
+          icon: Icon(
+            Icons.logout,
+            size: 28,
+            color: theme.whiteColor,
+          ),
           onPressed: () {},
           padding: const EdgeInsets.only(right: 16),
         ),
       ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
