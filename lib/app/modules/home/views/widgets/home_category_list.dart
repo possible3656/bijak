@@ -1,7 +1,6 @@
 import 'package:bijak/app/modules/home/controllers/home_controller.dart';
 import 'package:bijak/app/res/strings.dart';
 import 'package:bijak/app/theme/text_styles.dart';
-import 'package:bijak/app/utils/extensions/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
@@ -10,18 +9,14 @@ class HomeCategoryList extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             Strings.categories,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: theme.blackColor),
+            style: TextStyles.black14Bold,
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -31,6 +26,7 @@ class HomeCategoryList extends GetView<HomeController> {
               itemCount:
                   controller.homePageDataModel.value.categories?.length ?? 0,
               scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 final element =
                     controller.homePageDataModel.value.categories?[index];
@@ -73,7 +69,7 @@ class HomeCategoryItem extends StatelessWidget {
               style: TextStyles.black12Bold,
               textAlign: TextAlign.center,
               maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+              overflow: TextOverflow.visible,
             ),
           ],
         ),

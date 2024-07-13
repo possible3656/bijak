@@ -30,6 +30,7 @@ class HomeHorizontalProductList extends GetView<HomeController> {
               scrollDirection: Axis.horizontal,
               itemCount:
                   controller.homePageDataModel.value.recentOrder?.length ?? 0,
+              padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return Obx(() => ProductItem(
                     item:
@@ -141,7 +142,7 @@ class ProductItem extends StatelessWidget {
                               bottomRight: Radius.circular(8))),
                       child: AddToCartButton(
                           item: item,
-                          quantity: item.quantity ?? 0,
+                          quantity: item.quantity,
                           onAddToCartPressed: onAddToCartPressed),
                     ),
                   )

@@ -9,7 +9,6 @@ class HomeImageBanner extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
       child: CarouselSlider(

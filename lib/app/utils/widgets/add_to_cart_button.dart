@@ -37,6 +37,7 @@ class AddToCartButton extends StatelessWidget {
                 child: InkWell(
                   onTap: () => onAddToCartPressed(item: item, isAdded: false),
                   child: Container(
+                    height: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -51,14 +52,17 @@ class AddToCartButton extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Container(
+                  height: double.maxFinite,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
-                    quantity.toString(),
-                    textAlign: TextAlign.center,
-                    style: themeData.textTheme.titleSmall?.copyWith(
-                      color: themeData.whiteColor,
+                  child: Center(
+                    child: Text(
+                      quantity.toString(),
+                      textAlign: TextAlign.center,
+                      style: themeData.textTheme.titleSmall?.copyWith(
+                        color: themeData.whiteColor,
+                      ),
                     ),
                   ),
                 ),
@@ -68,6 +72,7 @@ class AddToCartButton extends StatelessWidget {
                 child: InkWell(
                   onTap: () => onAddToCartPressed(item: item, isAdded: true),
                   child: Container(
+                    height: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                     ),

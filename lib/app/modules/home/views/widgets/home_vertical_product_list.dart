@@ -27,6 +27,7 @@ class HomeVerticalProductList extends GetView<HomeController> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
           itemCount:
               controller.homePageDataModel.value.seasonalProducts?.length ?? 0,
           itemBuilder: (context, index) {
@@ -125,12 +126,14 @@ class VerticalProductItem extends StatelessWidget {
                       color: theme.blackColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    height: 35,
+                    height: 45,
                     width: Get.width * .25,
-                    child: AddToCartButton(
-                        item: item,
-                        quantity: item.quantity,
-                        onAddToCartPressed: onAddToCartPressed),
+                    child: IntrinsicHeight(
+                      child: AddToCartButton(
+                          item: item,
+                          quantity: item.quantity,
+                          onAddToCartPressed: onAddToCartPressed),
+                    ),
                   )),
             ],
           ),
