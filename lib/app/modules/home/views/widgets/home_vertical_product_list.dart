@@ -86,7 +86,10 @@ class VerticalProductItem extends StatelessWidget {
           ),
           child: Row(
             children: [
-              MagicImage(imageUrl: image, size: const Size(96, 96)),
+              SizedBox(
+                  height: 96,
+                  width: 96,
+                  child: MagicImage(imageUrl: image, size: const Size(96, 96))),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(

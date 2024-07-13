@@ -89,9 +89,13 @@ class ProductItem extends StatelessWidget {
                   topLeft: Radius.circular(8),
                   topRight: Radius.circular(8),
                 ),
-                child: MagicImage(
-                  imageUrl: item.image,
-                  size: const Size(96, 96),
+                child: SizedBox(
+                  height: 96,
+                  width: 96,
+                  child: MagicImage(
+                    imageUrl: item.image,
+                    size: const Size(96, 96),
+                  ),
                 )),
             Expanded(
               child: Column(

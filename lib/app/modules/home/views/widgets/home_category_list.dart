@@ -25,7 +25,7 @@ class HomeCategoryList extends GetView<HomeController> {
           ),
           const SizedBox(height: 8),
           SizedBox(
-            height: 86,
+            height: 90,
             child: ListView.builder(
               shrinkWrap: true,
               itemCount:

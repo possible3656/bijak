@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final ThemeData appTheme = ThemeData(
     appBarTheme: _appBarTheme,
-    fontFamily: 'poppins',
   );
 
   static const AppBarTheme _appBarTheme = AppBarTheme(

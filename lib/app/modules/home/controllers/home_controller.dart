@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bijak/app/data/home_page_data_model.dart';
 import 'package:bijak/app/modules/home/repo/home_repo.dart';
 import 'package:bijak/app/routes/app_pages.dart';
+import 'package:bijak/app/utils/global_methods.dart';
 import 'package:get/get.dart';
 
 /// Controller class for the home page.
@@ -22,6 +23,7 @@ class HomeController extends GetxController {
   /// Fetches the home page data from the repository.
   Future<void> fetchHomePageData() async {
     homePageDataModel.value = await homeRepo.getHomePageData();
+    GlobalMethods.hapticFeedback();
     loading.value = false;
   }
 
@@ -43,6 +45,7 @@ class HomeController extends GetxController {
     }
     updateCartItems(product);
     homePageDataModel.refresh();
+    GlobalMethods.hapticFeedback();
   }
 
   /// Removes an existing product from the cart items list.
@@ -87,6 +90,7 @@ class HomeController extends GetxController {
   }
 
   void goToProductDetails(Product product) {
+    GlobalMethods.hapticFeedback();
     Get.toNamed(Routes.PRODUCT_DETAILS_PAGE, arguments: product.id)
         ?.then((value) {
       refresh();
